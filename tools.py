@@ -61,8 +61,8 @@ def find_examples(concept: str, count: int = 2) -> str:
     return response.content[0].text
 
 def search_documents(query: str) -> str:
-    return f"Search results for: {query} --- no documents uploaded yet."
-
+    from database import search_documents as db_search
+    return db_search(query)
 AVAILABLE_TOOLS = {
     "explain_topic": explain_topic,
     "find_examples": find_examples,
