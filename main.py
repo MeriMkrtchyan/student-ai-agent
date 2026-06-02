@@ -3,6 +3,9 @@ load_dotenv()
 
 import os
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Dict, Any
 from anthropic import Anthropic
@@ -13,13 +16,23 @@ from database import add_document
 app = FastAPI(title="Student AI Assistant")
 client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 class AskRequest(BaseModel):
     question: str
     history: List[Dict[str, Any]] = []
 
 @app.get("/")
 async def root():
-    return {"message": "Student AI Assistant is running. Use POST /ask or POST /upload"}
+    return FileResponse("static/index.html")
 
 @app.get("/health")
 async def health():
