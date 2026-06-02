@@ -15,6 +15,10 @@ class AskRequest(BaseModel):
     question: str
     history: List[Dict[str, Any]] = []
 
+@app.get("/")
+async def root():
+    return {"message": "Student AI Assistant is running. Use POST /ask to ask questions."}
+
 @app.get("/health")
 async def health():
     return {"status": "ok", "model": "claude-haiku-4-5-20251001"}
