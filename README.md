@@ -12,24 +12,42 @@ Built with Python, FastAPI, and ChromaDB. All tools are free-tier or open-source
 - Conversation memory -- Multi-turn chat with persistent history
 - 100% local embeddings -- Uses all-MiniLM-L6-v2 (no paid embedding API)
 
-## Quick Start
+## Tech Stack
+FastAPI
+Python
+ChromaDB
+Anthropic Claude API
+Uvicorn
 
-```bash
-# 1. Clone & enter
-git clone &lt;your-repo-url&gt;
+## Live Demo
+
+https://student-ai-agent-fhur.onrender.com
+
+## How to Run Locally
+git clone https://github.com/your-username/student-ai-agent.git
 cd student-ai-agent
 
-# 2. Virtual env
-python3 -m venv venv && source venv/bin/activate
-
-# 3. Install
+python -m venv venv
+source venv/bin/activate  # (Linux/Mac)
 pip install -r requirements.txt
 
-# 4. API key
-cp .env.example .env
-# Edit .env: paste your key from console.anthropic.com
-
-# 5. Run
 uvicorn main:app --reload
+Environment Variables
 
-# 6. Open http://localhost:8000# Student AI Assistant Agent
+Create a .env file:
+
+ANTHROPIC_API_KEY=your_key_here
+
+## Project Structure
+main.py
+agent.py
+database.py
+document_processor.py
+static/
+requirements.txt
+
+## API Endpoints
+GET / → Frontend
+GET /health → Health check
+POST /upload → Upload documents
+POST /ask → Ask questions
